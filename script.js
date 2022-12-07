@@ -14,7 +14,7 @@
 // Add event listener to generate button
 //generateBtn.addEventListener("click", writePassword);
 
-//to do: add errors for wrong number of characters or selecting no character types
+//to do: add error selecting no character types
 
 var generateBtn = document.querySelector("#generate");
 
@@ -26,7 +26,7 @@ var special = ["!", "#", "$", "%", "&", "(", ")", "*", "+", "-", "/", ":", ";", 
 function writePassword() {
   var size = prompt("How many characters do you want between 8 and 128?");
   if (size < 8 || size > 128){
-    if (confirm("Must choose between 8 and 128. Do you want to try again?") == true){
+    if (confirm("Must choose between 8 and 128 characters. Do you want to try again?") == true){
       writePassword();
     } else {
       return;
@@ -51,7 +51,8 @@ function writePassword() {
   shuffleArray(password);
   var password = password.slice(0, size);
   var password = password.join('');
-  alert (password);
+  var passwordText = document.querySelector("#password");
+  passwordText.value = password;
 }
 
 generateBtn.addEventListener("click", writePassword);
