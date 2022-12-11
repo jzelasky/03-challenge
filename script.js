@@ -23,6 +23,39 @@ var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"
 var numeric = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 var special = ["!", "#", "$", "%", "&", "(", ")", "*", "+", "-", "/", ":", ";", "<", "=", ">", "?", "@", "[", "]", "^", "_", "{", "|", "}", "~"];
 
+function generatePassword(){
+  var password = [];
+  var lowerCaseAsk = confirm("Do you want to include lowercase chracters?");
+  var upperCaseAsk = confirm("Do you want to include uppercase characters?");
+  var numericAsk = confirm("Do you want to include numeric characters?");
+  var specialAsk = confirm("Do you want to include special letters?");
+  if (lowerCaseAsk == true){
+    var password = password.concat(lowerCase);
+  } 
+  if (upperCaseAsk == true){
+    var password = password.concat(upperCase);
+  } 
+  if (numericAsk == true){
+    var password = password.concat(numeric);
+  } 
+  if (specialAsk == true){
+    var password = password.concat(special);
+  } 
+  if (lowerCaseAsk == false && upperCaseAsk == false && numericAsk == false && specialAsk == false) {
+    if (confirm("Must choose at least one character type. Do you want to try again?") == true){
+      generatePassword();
+    } else {
+      return;
+    }
+  }
+  return password;
+
+}
+
+function shuffleArray(password) {
+  password.sort(() => Math.random() - 0.5);
+}
+
 function writePassword() {
   var size = prompt("How many characters do you want between 8 and 128?");
   if (size < 8 || size > 128){
@@ -32,22 +65,9 @@ function writePassword() {
       return;
     }
   }
-  var password = [];
-  if (confirm("Do you want to include lowercase chracters?") == true){
-    var password = password.concat(lowerCase);
-  } 
-  if (confirm("Do you want to include uppercase characters?") == true){
-    var password = password.concat(upperCase);
-  } 
-  if (confirm("Do you want to include numeric characters?") == true){
-    var password = password.concat(numeric);
-  } 
-  if (confirm("Do you want to include special letters?") == true){
-    var password = password.concat(special);
-  } 
-  function shuffleArray(password) {
-    password.sort(() => Math.random() - 0.5);
-  }
+  
+  var password = generatePassword();
+ 
   shuffleArray(password);
   var password = password.slice(0, size);
   var password = password.join('');
